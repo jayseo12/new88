@@ -82,6 +82,7 @@
 
         .text-muted-custom {
             color: var(--text-gray);
+            font-size: 1.1rem;
         }
 
         /* Layout & Backgrounds */
@@ -170,6 +171,7 @@
             transform: scale(0);
             animation: ripple-animation 0.6s linear;
             background-color: rgba(255, 255, 255, 0.7);
+            pointer-events: none;
         }
         @keyframes ripple-animation {
             to { transform: scale(4); opacity: 0; }
@@ -183,7 +185,7 @@
         }
         
         .navbar.scrolled {
-            background: rgba(7, 7, 7, 0.85);
+            background: rgba(7, 7, 7, 0.9);
             backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--glass-border);
             padding: 10px 0;
@@ -247,6 +249,8 @@
             min-height: 100vh;
             display: flex;
             align-items: center;
+            padding-top: 100px;
+            padding-bottom: 50px;
             background: radial-gradient(circle at center, rgba(255,193,7,0.05) 0%, rgba(7,7,7,1) 70%),
                         url('https://images.unsplash.com/photo-1518605368461-1ee7c5320697?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
             background-blend-mode: overlay;
@@ -296,7 +300,7 @@
         /* Hero Visual (Right Side) */
         .hero-visual {
             position: relative;
-            height: 600px;
+            height: 500px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -312,11 +316,27 @@
             animation: pulse-glow 4s infinite alternate;
         }
 
+        .hero-main-img {
+            position: relative;
+            z-index: 3;
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 30px var(--gold-glow);
+            border: 2px solid var(--primary);
+            animation: float-img 4s ease-in-out infinite;
+        }
+
+        @keyframes float-img {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
         .floating-element {
             position: absolute;
             width: 80px;
             height: 80px;
-            background: var(--glass-bg);
+            background: rgba(16, 16, 16, 0.6);
             backdrop-filter: blur(10px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
@@ -327,6 +347,7 @@
             color: var(--primary);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 0 15px rgba(255,193,7,0.1);
             transition: all 0.3s;
+            z-index: 4;
         }
 
         .floating-element i {
@@ -334,11 +355,11 @@
         }
 
         /* Specific positions for floating items */
-        .fl-1 { top: 10%; left: 20%; font-size: 2.5rem; }
-        .fl-2 { top: 30%; right: 10%; width: 100px; height: 100px; font-size: 3rem; }
-        .fl-3 { bottom: 20%; left: 10%; }
-        .fl-4 { bottom: 30%; right: 20%; font-size: 2.2rem; }
-        .fl-5 { top: 50%; left: 40%; width: 120px; height: 120px; font-size: 4rem; z-index: 5; border-color: var(--primary); box-shadow: 0 0 30px var(--gold-glow); }
+        .fl-1 { top: 5%; left: 10%; font-size: 2.5rem; }
+        .fl-2 { top: 25%; right: 5%; width: 100px; height: 100px; font-size: 3rem; }
+        .fl-3 { bottom: 10%; left: 5%; }
+        .fl-4 { bottom: 20%; right: 10%; font-size: 2.2rem; }
+        .fl-5 { top: 50%; left: -10%; width: 90px; height: 90px; font-size: 2.5rem; border-color: var(--primary); }
 
         @keyframes pulse-glow {
             0% { transform: scale(1); opacity: 0.5; }
@@ -362,32 +383,65 @@
             margin-bottom: 15px;
         }
 
+        /* Card Games with Illustrations */
         .game-card {
             background: var(--bg-dark-gray);
             border: 1px solid var(--glass-border);
-            border-radius: 16px;
-            padding: 30px 20px;
+            border-radius: 20px;
+            padding-bottom: 25px;
             text-align: center;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
             height: 100%;
-            cursor: pointer;
             z-index: 1;
+        }
+
+        .game-card-img-wrapper {
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .game-card-img-wrapper::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, var(--bg-dark-gray), transparent);
+            z-index: 2;
+        }
+
+        .game-card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .game-card:hover .game-card-img {
+            transform: scale(1.1);
+        }
+
+        .game-card-content {
+            padding: 0 20px;
+            position: relative;
+            margin-top: -45px;
+            z-index: 3;
         }
 
         .game-card::before {
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at top right, rgba(255,193,7,0.1), transparent);
+            background: radial-gradient(circle at top right, rgba(255,193,7,0.15), transparent);
             opacity: 0;
             transition: opacity 0.4s ease;
             z-index: -1;
         }
 
         .game-card:hover {
-            transform: translateY(-15px) scale(1.03);
+            transform: translateY(-12px);
             border-color: var(--primary);
             box-shadow: 0 15px 35px rgba(0,0,0,0.5), 0 0 20px var(--gold-glow);
         }
@@ -399,16 +453,17 @@
         .game-icon {
             width: 80px;
             height: 80px;
-            margin: 0 auto 20px;
+            margin: 0 auto 15px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 2.5rem;
             color: var(--primary);
-            background: rgba(255, 255, 255, 0.05);
+            background: var(--bg-dark-gray);
+            border: 2px solid var(--primary);
             border-radius: 50%;
             transition: all 0.4s ease;
-            box-shadow: inset 0 0 10px rgba(255,255,255,0.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
         }
 
         .game-card:hover .game-icon {
@@ -416,6 +471,7 @@
             background: var(--primary);
             color: var(--bg-black);
             box-shadow: 0 0 20px var(--gold-glow);
+            border-color: transparent;
         }
 
         .game-title {
@@ -428,17 +484,7 @@
             color: var(--text-gray);
             font-size: 0.95rem;
             margin-bottom: 20px;
-        }
-
-        .game-card .btn-play {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.4s ease;
-        }
-
-        .game-card:hover .btn-play {
-            opacity: 1;
-            transform: translateY(0);
+            line-height: 1.5;
         }
 
         /* Section CTA */
@@ -511,8 +557,8 @@
     <!-- Header -->
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#">NEW<span>88</span></a>
-            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand" href="#hero">NEW<span>88</span></a>
+            <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -521,10 +567,11 @@
                     <li class="nav-item"><a class="nav-link" href="#games">Thể thao</a></li>
                     <li class="nav-item"><a class="nav-link" href="#games">Casino</a></li>
                     <li class="nav-item"><a class="nav-link" href="#cta">Khuyến mãi</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Tin tức</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#cta">Tin tức</a></li>
                 </ul>
-                <div class="d-flex gap-3 mt-3 mt-lg-0">
-                    <button class="btn btn-premium btn-ripple">Đăng ký</button>
+                <div class="d-flex gap-3 mt-3 mt-lg-0 justify-content-center">
+                    <!-- Nút Đăng ký ở header -->
+                    <a data-link="register" target="_blank" class="btn btn-premium btn-ripple">Đăng ký</a>
                 </div>
             </div>
         </div>
@@ -535,18 +582,24 @@
         <div class="container">
             <div class="row align-items-center">
                 <!-- Left Content -->
-                <div class="col-lg-6 hero-content">
-                    <div class="badge-premium" data-aos="fade-up">NHÀ CÁI UY TÍN</div>
+                <div class="col-lg-6 hero-content text-lg-start text-center">
+                    <div class="badge-premium" data-aos="fade-up">NHÀ CÁI UY TÍN SỐ 1 CHÂU Á</div>
                     <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
                         NEW<span class="text-gold">88</span><br>
-                        Đỉnh Cao<br>Giải Trí
+                        Nhà Cái Uy Tín<br>Hàng Đầu
                     </h1>
                     <p class="hero-desc" data-aos="fade-up" data-aos-delay="200">
                         Cá cược thể thao - Casino Live - Bắn Cá - Tài Xỉu - Lô Đề. Nền tảng cá cược uy tín hàng đầu với công nghệ bảo mật tuyệt đối.
                     </p>
                     <div class="d-flex gap-3 flex-wrap justify-content-center justify-content-lg-start" data-aos="fade-up" data-aos-delay="300">
-                        <button class="btn btn-premium btn-ripple"><i class="fa-solid fa-user-plus me-2"></i>Đăng ký ngay</button>
-                        <button class="btn btn-premium btn-outline-premium btn-ripple"><i class="fa-solid fa-play me-2"></i>Khám phá ngay</button>
+                        <!-- Nút Đăng ký ngay -->
+                        <a data-link="register" target="_blank" class="btn btn-premium btn-ripple">
+                            <i class="fa-solid fa-user-plus me-2"></i>Đăng ký ngay
+                        </a>
+                        <!-- Nút Khám phá ngay -->
+                        <a data-link="explore" class="btn btn-premium btn-outline-premium btn-ripple">
+                            <i class="fa-solid fa-compass me-2"></i>Khám phá ngay
+                        </a>
                     </div>
                 </div>
 
@@ -554,11 +607,16 @@
                 <div class="col-lg-6 d-none d-lg-block">
                     <div class="hero-visual">
                         <div class="visual-center"></div>
+                        
+                        <!-- Ấn tượng: Hình ảnh Casino 3D sang trọng -->
+                        <img src="https://images.unsplash.com/photo-1596838132731-3301c3fd4317?q=80&w=1000&auto=format&fit=crop" alt="NEW88 Casino Premium" class="hero-main-img" data-aos="zoom-in" data-aos-delay="200">
+                        
+                        <!-- Icon lơ lửng tạo chiều sâu -->
                         <div class="floating-element fl-1"><i class="fa-solid fa-futbol"></i></div>
                         <div class="floating-element fl-2"><i class="fa-solid fa-dice"></i></div>
                         <div class="floating-element fl-3"><i class="fa-solid fa-fish"></i></div>
                         <div class="floating-element fl-4"><i class="fa-solid fa-coins"></i></div>
-                        <div class="floating-element fl-5"><i class="fa-brands fa-bitcoin"></i></div>
+                        <div class="floating-element fl-5"><i class="fa-solid fa-crown"></i></div>
                     </div>
                 </div>
             </div>
@@ -573,59 +631,97 @@
                 <p class="text-muted-custom">Hàng ngàn trò chơi hấp dẫn đang chờ đón bạn</p>
             </div>
             
-            <div class="row g-4">
-                <!-- Card 1 -->
+            <div class="row g-4 justify-content-center">
+                <!-- Card 1: Thể thao -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-futbol"></i></div>
-                        <h3 class="game-title text-gold">Thể thao</h3>
-                        <p class="game-desc">Cập nhật hàng ngàn trận đấu mỗi ngày với tỷ lệ cược tốt nhất thị trường.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1461896836934-ffe607ba8211?q=80&w=800&auto=format&fit=crop" alt="Thể thao">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-futbol"></i></div>
+                            <h3 class="game-title text-gold">Thể thao</h3>
+                            <p class="game-desc">Cập nhật hàng ngàn trận đấu mỗi ngày với tỷ lệ cược tốt nhất thị trường.</p>
+                            <!-- Nút chơi game Thể thao -->
+                            <a data-link="sports" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Card 2 -->
+                <!-- Card 2: Casino Live -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-dice-d20"></i></div>
-                        <h3 class="game-title text-gold">Casino Live</h3>
-                        <p class="game-desc">Trải nghiệm sòng bài chân thực với Dealer xinh đẹp, trực tiếp 24/7.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1606167668584-78701c57f13d?q=80&w=800&auto=format&fit=crop" alt="Casino Live">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-dice-d20"></i></div>
+                            <h3 class="game-title text-gold">Casino Live</h3>
+                            <p class="game-desc">Trải nghiệm sòng bài chân thực với Dealer xinh đẹp, trực tiếp 24/7.</p>
+                            <!-- Nút chơi game Casino -->
+                            <a data-link="casino" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Card 3 -->
+                <!-- Card 3: Bắn cá -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-fish"></i></div>
-                        <h3 class="game-title text-gold">Bắn cá</h3>
-                        <p class="game-desc">Đồ họa 3D sắc nét, âm thanh sống động, rinh xu vàng cực khủng.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1551244072-5d12893278ab?q=80&w=800&auto=format&fit=crop" alt="Bắn cá">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-fish"></i></div>
+                            <h3 class="game-title text-gold">Bắn cá</h3>
+                            <p class="game-desc">Đồ họa 3D sắc nét, âm thanh sống động, rinh xu vàng cực khủng.</p>
+                            <!-- Nút chơi game Bắn cá -->
+                            <a data-link="fish" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Card 4 -->
+                <!-- Card 4: Tài xỉu -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-dice"></i></div>
-                        <h3 class="game-title text-gold">Tài xỉu</h3>
-                        <p class="game-desc">Lối chơi đơn giản, trả thưởng cực nhanh. Minigame đỉnh cao.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?q=80&w=800&auto=format&fit=crop" alt="Tài xỉu">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-dice"></i></div>
+                            <h3 class="game-title text-gold">Tài xỉu</h3>
+                            <p class="game-desc">Lối chơi đơn giản, trả thưởng cực nhanh. Minigame đỉnh cao.</p>
+                            <!-- Nút chơi game Tài xỉu -->
+                            <a data-link="dice" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Card 5 -->
+                <!-- Card 5: Game bài -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-layer-group"></i></div>
-                        <h3 class="game-title text-gold">Game bài</h3>
-                        <p class="game-desc">Tiến lên, Phỏm, Baccarat... Sân chơi đa dạng cho tín đồ game bài.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <!-- Đã sửa đổi hình ảnh Game bài chất lượng cao -->
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?q=80&w=800&auto=format&fit=crop" alt="Game bài">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-layer-group"></i></div>
+                            <h3 class="game-title text-gold">Game bài</h3>
+                            <p class="game-desc">Tiến lên, Phỏm, Baccarat... Sân chơi đa dạng cho tín đồ game bài.</p>
+                            <!-- Nút chơi game Bài -->
+                            <a data-link="cards" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
-                <!-- Card 6 -->
+                <!-- Card 6: Lô đề -->
                 <div class="col-12 col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="600">
                     <div class="game-card">
-                        <div class="game-icon"><i class="fa-solid fa-bullseye"></i></div>
-                        <h3 class="game-title text-gold">Lô đề</h3>
-                        <p class="game-desc">Tỷ lệ ăn cao nhất 1 ăn 99. Đa dạng đài quay thưởng mỗi ngày.</p>
-                        <button class="btn btn-premium btn-outline-premium btn-sm btn-play w-100">Chơi ngay</button>
+                        <div class="game-card-img-wrapper">
+                            <!-- Đã sửa đổi hình ảnh Lô đề lôi cuốn sắc nét -->
+                            <img class="game-card-img" src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=800&auto=format&fit=crop" alt="Lô đề">
+                        </div>
+                        <div class="game-card-content">
+                            <div class="game-icon"><i class="fa-solid fa-bullseye"></i></div>
+                            <h3 class="game-title text-gold">Lô đề</h3>
+                            <p class="game-desc">Tỷ lệ ăn cao nhất 1 ăn 99. Đa dạng đài quay thưởng mỗi ngày.</p>
+                            <!-- Nút chơi game Lô đề -->
+                            <a data-link="lottery" target="_blank" class="btn btn-premium btn-ripple w-100">Chơi ngay</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -638,9 +734,15 @@
             <div class="cta-content" data-aos="zoom-in">
                 <h2>Tham gia <span class="text-gold">NEW88</span> ngay hôm nay</h2>
                 <p>Nhận ngay ưu đãi nạp lần đầu lên đến <strong>100%</strong>. Cơ hội làm giàu trong tầm tay!</p>
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <button class="btn btn-premium btn-ripple btn-lg" style="animation: pulse-glow 2s infinite alternate;"><i class="fa-solid fa-user-plus me-2"></i>Đăng ký</button>
-                    <button class="btn btn-premium btn-outline-premium btn-ripple btn-lg"><i class="fa-solid fa-mobile-screen me-2"></i>Tải App</button>
+                <div class="d-flex justify-content-center gap-4 flex-wrap">
+                    <!-- Nút Đăng ký ở CTA -->
+                    <a data-link="register" target="_blank" class="btn btn-premium btn-ripple btn-lg">
+                        <i class="fa-solid fa-user-plus me-2"></i>Đăng ký ngay
+                    </a>
+                    <!-- Nút Tải app ở CTA -->
+                    <a data-link="downloadApp" target="_blank" class="btn btn-premium btn-outline-premium btn-ripple btn-lg">
+                        <i class="fa-solid fa-mobile-screen me-2"></i>Tải App Mobile
+                    </a>
                 </div>
             </div>
         </div>
@@ -648,7 +750,7 @@
 
     <!-- Scripts -->
     <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.css"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
@@ -657,28 +759,44 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     
     <!-- tsParticles -->
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine@2/tsparticles.engine.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-basic@2/tsparticles.basic.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links@2/tsparticles.interaction.particles.links.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-move-base@2/tsparticles.move.base.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-shape-circle@2/tsparticles.shape.circle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-color@2/tsparticles.updater.color.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-opacity@2/tsparticles.updater.opacity.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-out-modes@2/tsparticles.updater.out-modes.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/tsparticles-updater-size@2/tsparticles.updater.size.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
 
     <!-- Custom Logic -->
     <script>
+        // ==========================================================
+        // KHU VỰC QUẢN LÝ LINK TẬP TRUNG (CONFIG_LINKS)
+        // Thay đổi đường dẫn các liên kết tại đây, toàn trang sẽ tự động áp dụng!
+        // ==========================================================
+        const CONFIG_LINKS = {
+            "register": "https://new88-aff.pages.dev/dangky",     // Link Đăng Ký Tài Khoản
+            "explore": "#games",                                  // Link nút Khám Phá Ngay (Cuộn xuống Danh sách game)
+            "sports": "https://new88-aff.pages.dev/thethao",      // Link chơi Thể Thao
+            "casino": "https://new88-aff.pages.dev/casino",       // Link chơi Casino Live
+            "fish": "https://new88-aff.pages.dev/banca",          // Link chơi Bắn Cá
+            "dice": "https://new88-aff.pages.dev/taixiu",         // Link chơi Tài Xỉu
+            "cards": "https://new88-aff.pages.dev/gamebai",       // Link chơi Game Bài
+            "lottery": "https://new88-aff.pages.dev/lode",        // Link chơi Lô Đề
+            "downloadApp": "https://new88-aff.pages.dev/download" // Link tải App Mobile
+        };
+
         document.addEventListener('DOMContentLoaded', () => {
-            // 1. Initialize AOS
+            
+            // 1. Gán động liên kết từ cấu hình CONFIG_LINKS vào toàn bộ trang
+            document.querySelectorAll('[data-link]').forEach(element => {
+                const linkKey = element.getAttribute('data-link');
+                if (CONFIG_LINKS[linkKey]) {
+                    element.setAttribute('href', CONFIG_LINKS[linkKey]);
+                }
+            });
+
+            // 2. Initialize AOS
             AOS.init({
                 duration: 800,
                 once: true,
                 offset: 50,
             });
 
-            // 2. Sticky Navbar Logic
+            // 3. Sticky Navbar Logic
             const navbar = document.querySelector('.navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -688,12 +806,12 @@
                 }
             });
 
-            // 3. GSAP Floating Animations for Hero Visuals
+            // 4. GSAP Floating Animations for Hero Visuals
             const floatElements = document.querySelectorAll('.floating-element');
             floatElements.forEach((el, index) => {
                 const randomX = Math.random() * 30 - 15;
                 const randomY = Math.random() * 30 - 15;
-                const randomDuration = 2 + Math.random() * 2;
+                const randomDuration = 2.5 + Math.random() * 2;
                 const randomDelay = Math.random() * 1;
                 const randomRotation = Math.random() * 40 - 20;
 
@@ -709,12 +827,13 @@
                 });
             });
 
-            // 4. Button Ripple Effect
+            // 5. Button Ripple Effect
             const buttons = document.querySelectorAll('.btn-ripple');
             buttons.forEach(btn => {
                 btn.addEventListener('click', function (e) {
-                    let x = e.clientX - e.target.getBoundingClientRect().left;
-                    let y = e.clientY - e.target.getBoundingClientRect().top;
+                    let rect = this.getBoundingClientRect();
+                    let x = e.clientX - rect.left;
+                    let y = e.clientY - rect.top;
 
                     let ripples = document.createElement('span');
                     ripples.style.left = x + 'px';
@@ -728,7 +847,7 @@
                 });
             });
 
-            // 5. tsParticles Initialization (Gold dust effect)
+            // 6. tsParticles Initialization (Gold dust effect)
             tsParticles.load("tsparticles", {
                 fpsLimit: 60,
                 particles: {
